@@ -29,7 +29,7 @@ uses: actions/configure-pages@v5
 uses: actions/upload-pages-artifact@v3
 with:
 # Root directory containing index.html
-path: '.'
+path: './joseph_portfolio_github_pages'
 - name: Deploy to GitHub Pages
 id: deployment
 uses: actions/deploy-pages@v4
