@@ -1,0 +1,35 @@
+name: Deploy Portfolio to GitHub Pages
+on:
+Trigger deployment on every push to main branch
+push:
+branches: ["main"]
+Allows manual triggering from Actions tab
+workflow_dispatch:
+Grant GITHUB_TOKEN required permissions for deployment
+permissions:
+contents: read
+pages: write
+id-token: write
+Prevent duplicate concurrent builds
+concurrency:
+group: "pages"
+cancel-in-progress: true
+jobs:
+deploy:
+environment:
+name: github-pages
+url: ${{ steps.deployment.outputs.page_link }}
+runs-on: ubuntu-latest
+steps:
+- name: Checkout Code
+uses: actions/checkout@v4
+- name: Setup GitHub Pages
+uses: actions/configure-pages@v5
+- name: Upload Page Artifact
+uses: actions/upload-pages-artifact@v3
+with:
+# Root directory containing index.html
+path: '.'
+- name: Deploy to GitHub Pages
+id: deployment
+uses: actions/deploy-pages@v4
